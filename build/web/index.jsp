@@ -4,6 +4,7 @@
     Author     : Ardian
 --%>
 
+<%@page import="utils.DBConfig"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,5 +14,9 @@
     </head>
     <body>
         <h1>Hello World!</h1>
+        <%
+            DBConfig dBConfig = new DBConfig();
+            System.out.print(dBConfig.getConnection());
+        %>
     </body>
 </html>
