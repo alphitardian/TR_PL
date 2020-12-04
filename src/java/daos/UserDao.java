@@ -23,8 +23,9 @@ public class UserDao {
     private Statement statement;
     private PreparedStatement preparedStatement;
     
+    DBConfig connection = new DBConfig();
+    
     public List<User> getAll() {
-        DBConfig connection = new DBConfig();
         
         if (connection.getConnection() == null) {
             return null;
@@ -60,7 +61,6 @@ public class UserDao {
     }
     
     public User getUserById(int id) {
-        DBConfig connection = new DBConfig();
         
         if (connection.getConnection() == null) {
             return null;
@@ -93,7 +93,6 @@ public class UserDao {
     }
     
     public boolean deleteUser(int id) {
-        DBConfig connection = new DBConfig();
         
         if (connection.getConnection() == null) {
             return false;
@@ -101,6 +100,7 @@ public class UserDao {
             try {
                 connection.deleteDataQuery(Query.QUERY_DELETE_USER.getDisplayName(), id + "");
 
+                preparedStatement.close();
                 connection.getConnection().close();
                 
                 System.out.println("Delete User Data By Id Success");
@@ -115,7 +115,6 @@ public class UserDao {
     }
     
     public boolean insertUser(String name, String username, String password) {
-        DBConfig connection = new DBConfig();
         
         if (connection.getConnection() == null) {
             return false;
@@ -123,6 +122,7 @@ public class UserDao {
             try {
                 connection.queryInsertUser(Query.QUERY_INSERT_USER.getDisplayName(), name, username, password);
 
+                preparedStatement.close();
                 connection.getConnection().close();
                 
                 System.out.println("Insert User Data Success");

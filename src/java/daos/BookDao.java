@@ -5,6 +5,7 @@
  */
 package daos;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -20,9 +21,11 @@ public class BookDao {
     
     private ResultSet resultSet;
     private Statement statement;
+    private PreparedStatement preparedStatement;
+    
+    DBConfig connection = new DBConfig();
     
     public List<Book> getAll() {
-        DBConfig connection = new DBConfig();
         
         if (connection.getConnection() == null) {
             return null;
@@ -59,7 +62,6 @@ public class BookDao {
     }
     
     public Book getBookById(int id) {
-        DBConfig connection = new DBConfig();
         
         if (connection.getConnection() == null) {
             return null;
@@ -76,7 +78,7 @@ public class BookDao {
                     book.setAvailability(resultSet.getString("availability"));
                 }
                 
-                statement.close();
+                preparedStatement.close();
                 resultSet.close();
                 connection.getConnection().close();
                 
@@ -92,7 +94,6 @@ public class BookDao {
     }
     
     public boolean deleteBook(int id) {
-        DBConfig connection = new DBConfig();
         
         if (connection.getConnection() == null) {
             return false;
@@ -100,6 +101,7 @@ public class BookDao {
             try {
                 connection.deleteDataQuery(Query.QUERY_DELETE_BOOK.getDisplayName(), id + "");
 
+                preparedStatement.close();
                 connection.getConnection().close();
                 
                 System.out.println("Delete Book Data By Id Success");
@@ -114,7 +116,6 @@ public class BookDao {
     }
     
     public boolean insertBook(String title, String author, String availability) {
-        DBConfig connection = new DBConfig();
         
         if (connection.getConnection() == null) {
             return false;
@@ -122,12 +123,35 @@ public class BookDao {
             try {
                 connection.queryInsertUser(Query.QUERY_INSERT_BOOK.getDisplayName(), title, author, availability);
 
+                preparedStatement.close();
                 connection.getConnection().close();
                 
                 System.out.println("Insert Book Data Success");
                 
             } catch (Exception e) {
                 System.out.println("Exception Insert Book : " + e);
+            }
+            
+            return true;
+            
+        }
+    }
+    
+    public boolean updateAvailability(String availability) {
+        
+        if (connection.getConnection() == null) {
+            return false;
+        } else {
+            try {
+                connection.connectDBPreparedStatementSingleValue(Query.QUERY_UPDATE_BOOK_AVAILABILITY.getDisplayName(), availability);
+
+                preparedStatement.close();
+                connection.getConnection().close();
+                
+                System.out.println("Update Book Availability Success");
+                
+            } catch (Exception e) {
+                System.out.println("Exception Update Availability Book : " + e);
             }
             
             return true;
