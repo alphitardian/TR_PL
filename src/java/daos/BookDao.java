@@ -90,4 +90,48 @@ public class BookDao {
             
         }
     }
+    
+    public boolean deleteBook(int id) {
+        DBConfig connection = new DBConfig();
+        
+        if (connection.getConnection() == null) {
+            return false;
+        } else {
+            try {
+                connection.deleteDataQuery(Query.QUERY_DELETE_BOOK.getDisplayName(), id + "");
+
+                connection.getConnection().close();
+                
+                System.out.println("Delete Book Data By Id Success");
+                
+            } catch (Exception e) {
+                System.out.println("Exception delete Book : " + e);
+            }
+            
+            return true;
+            
+        }
+    }
+    
+    public boolean insertBook(String title, String author, String availability) {
+        DBConfig connection = new DBConfig();
+        
+        if (connection.getConnection() == null) {
+            return false;
+        } else {
+            try {
+                connection.queryInsertUser(Query.QUERY_INSERT_BOOK.getDisplayName(), title, author, availability);
+
+                connection.getConnection().close();
+                
+                System.out.println("Insert Book Data Success");
+                
+            } catch (Exception e) {
+                System.out.println("Exception Insert Book : " + e);
+            }
+            
+            return true;
+            
+        }
+    }
 }

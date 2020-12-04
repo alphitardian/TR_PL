@@ -77,7 +77,7 @@ public class UserDao {
                     user.setPassword(resultSet.getString("password"));
                 }
                 
-                statement.close();
+                preparedStatement.close();
                 resultSet.close();
                 connection.getConnection().close();
                 
@@ -88,6 +88,50 @@ public class UserDao {
             }
             
             return user;
+            
+        }
+    }
+    
+    public boolean deleteUser(int id) {
+        DBConfig connection = new DBConfig();
+        
+        if (connection.getConnection() == null) {
+            return false;
+        } else {
+            try {
+                connection.deleteDataQuery(Query.QUERY_DELETE_USER.getDisplayName(), id + "");
+
+                connection.getConnection().close();
+                
+                System.out.println("Delete User Data By Id Success");
+                
+            } catch (Exception e) {
+                System.out.println("Exception delete User : " + e);
+            }
+            
+            return true;
+            
+        }
+    }
+    
+    public boolean insertUser(String name, String username, String password) {
+        DBConfig connection = new DBConfig();
+        
+        if (connection.getConnection() == null) {
+            return false;
+        } else {
+            try {
+                connection.queryInsertUser(Query.QUERY_INSERT_USER.getDisplayName(), name, username, password);
+
+                connection.getConnection().close();
+                
+                System.out.println("Insert User Data Success");
+                
+            } catch (Exception e) {
+                System.out.println("Exception Insert User : " + e);
+            }
+            
+            return true;
             
         }
     }

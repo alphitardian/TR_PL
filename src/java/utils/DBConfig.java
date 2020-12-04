@@ -77,4 +77,47 @@ public class DBConfig {
 
         return resultSet;
     }
+    
+    public void deleteDataQuery(String query, String id) {
+        try {
+            getConnection();
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, id);
+            preparedStatement.executeUpdate();
+            
+            System.out.println("Delete Data Success");
+        } catch (Exception e) {
+            System.out.println("Delete Data PreparedStatement : " + e);
+        }
+    }
+    
+    public void queryInsertUser(String query, String name, String username,String password) {
+        try {
+            getConnection();
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, username);
+            preparedStatement.setString(3, password);
+            preparedStatement.executeUpdate();
+            
+            System.out.println("Insert Data Success");
+        } catch (Exception e) {
+            System.out.println("Insert Data PreparedStatement : " + e);
+        }
+    }
+    
+    public void queryInsertBook(String query, String title, String author,String availability) {
+        try {
+            getConnection();
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, title);
+            preparedStatement.setString(2, author);
+            preparedStatement.setString(3, availability);
+            preparedStatement.executeUpdate();
+            
+            System.out.println("Insert Data Success");
+        } catch (Exception e) {
+            System.out.println("Insert Data PreparedStatement : " + e);
+        }
+    }
 }
