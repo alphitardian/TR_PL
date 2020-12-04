@@ -57,4 +57,37 @@ public class BookDao {
             
         }
     }
+    
+    public Book getBookById(int id) {
+        DBConfig connection = new DBConfig();
+        
+        if (connection.getConnection() == null) {
+            return null;
+        } else {
+            Book book = new Book();
+            
+            try {
+                resultSet = connection.connectDBPreparedStatementSingleValue(Query.QUERY_GET_BOOK_BY_ID.getDisplayName(), id + "");
+                
+                while (resultSet.next()) {
+                    book.setId(resultSet.getInt("id"));
+                    book.setTitle(resultSet.getString("title"));
+                    book.setAuthor(resultSet.getString("author"));
+                    book.setAvailability(resultSet.getString("availability"));
+                }
+                
+                statement.close();
+                resultSet.close();
+                connection.getConnection().close();
+                
+                System.out.println("Get Book Data By Id Success");
+                
+            } catch (Exception e) {
+                System.out.println("Exception getById Book : " + e);
+            }
+            
+            return book;
+            
+        }
+    }
 }

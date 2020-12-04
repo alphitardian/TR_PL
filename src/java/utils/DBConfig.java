@@ -59,4 +59,22 @@ public class DBConfig {
 
         return resultSet;
     }
+    
+    public ResultSet connectDBPreparedStatementSingleValue(String query, String value) {
+        resultSet = null;
+
+        try {
+            getConnection();
+
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, value);
+
+            resultSet = preparedStatement.executeQuery();
+            System.out.println("Connect DB ResultSet Success");
+        } catch (Exception e) {
+            System.out.println("Connect DB ResultSet PreparedStatement : " + e);
+        }
+
+        return resultSet;
+    }
 }
