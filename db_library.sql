@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 03, 2020 at 06:12 PM
+-- Generation Time: Dec 06, 2020 at 10:24 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -29,17 +29,12 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `book` (
   `id` int(10) NOT NULL,
+  `isbn` varchar(13) NOT NULL,
   `title` varchar(64) NOT NULL,
   `author` varchar(64) NOT NULL,
+  `publisher` int(2) NOT NULL,
   `availability` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `book`
---
-
-INSERT INTO `book` (`id`, `title`, `author`, `availability`) VALUES
-(1, 'Marmut Merah Jambu', 'Raditya Dika', 'available');
 
 -- --------------------------------------------------------
 
@@ -57,6 +52,19 @@ CREATE TABLE `borrowed` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `publisher`
+--
+
+CREATE TABLE `publisher` (
+  `id` int(2) NOT NULL,
+  `name` varchar(64) NOT NULL,
+  `address` varchar(64) NOT NULL,
+  `telephone` varchar(12) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
@@ -68,13 +76,6 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `user`
---
-
-INSERT INTO `user` (`id`, `name`, `username`, `password`) VALUES
-(1, 'Ardian Pramudya Alphita', 'alphitardian', '12345');
-
---
 -- Indexes for dumped tables
 --
 
@@ -82,7 +83,8 @@ INSERT INTO `user` (`id`, `name`, `username`, `password`) VALUES
 -- Indexes for table `book`
 --
 ALTER TABLE `book`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `publisher` (`publisher`);
 
 --
 -- Indexes for table `borrowed`
@@ -91,6 +93,12 @@ ALTER TABLE `borrowed`
   ADD PRIMARY KEY (`id`),
   ADD KEY `book` (`book`),
   ADD KEY `user` (`user`);
+
+--
+-- Indexes for table `publisher`
+--
+ALTER TABLE `publisher`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `user`
@@ -115,14 +123,26 @@ ALTER TABLE `borrowed`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `publisher`
+--
+ALTER TABLE `publisher`
+  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `book`
+--
+ALTER TABLE `book`
+  ADD CONSTRAINT `publisher` FOREIGN KEY (`publisher`) REFERENCES `publisher` (`id`);
 
 --
 -- Constraints for table `borrowed`

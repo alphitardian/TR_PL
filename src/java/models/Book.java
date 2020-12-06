@@ -15,6 +15,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -34,6 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Book.findAll", query = "SELECT b FROM Book b")
     , @NamedQuery(name = "Book.findById", query = "SELECT b FROM Book b WHERE b.id = :id")
+    , @NamedQuery(name = "Book.findByIsbn", query = "SELECT b FROM Book b WHERE b.isbn = :isbn")
     , @NamedQuery(name = "Book.findByTitle", query = "SELECT b FROM Book b WHERE b.title = :title")
     , @NamedQuery(name = "Book.findByAuthor", query = "SELECT b FROM Book b WHERE b.author = :author")
     , @NamedQuery(name = "Book.findByAvailability", query = "SELECT b FROM Book b WHERE b.availability = :availability")})
@@ -45,6 +48,11 @@ public class Book implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 13)
+    @Column(name = "isbn")
+    private String isbn;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 64)
@@ -60,6 +68,9 @@ public class Book implements Serializable {
     @Size(min = 1, max = 64)
     @Column(name = "availability")
     private String availability;
+    @JoinColumn(name = "publisher", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Publisher publisher;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "book", fetch = FetchType.LAZY)
     private List<Borrowed> borrowedList;
 
@@ -70,8 +81,9 @@ public class Book implements Serializable {
         this.id = id;
     }
 
-    public Book(Integer id, String title, String author, String availability) {
+    public Book(Integer id, String isbn, String title, String author, String availability) {
         this.id = id;
+        this.isbn = isbn;
         this.title = title;
         this.author = author;
         this.availability = availability;
@@ -83,6 +95,14 @@ public class Book implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
     public String getTitle() {
@@ -107,6 +127,14 @@ public class Book implements Serializable {
 
     public void setAvailability(String availability) {
         this.availability = availability;
+    }
+
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
     }
 
     @XmlTransient

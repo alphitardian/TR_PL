@@ -5,7 +5,7 @@
             <url>src/java/daos/UserDao.java</url>
             <bookmark id="1">
                 <name/>
-                <line>25</line>
+                <line>27</line>
                 <key/>
             </bookmark>
         </file>
@@ -15,6 +15,7 @@
             <file>file:/C:/Users/Ardian/Documents/NetBeansProjects/tr_pl_e_perpustakaan/src/java/daos/BookDao.java</file>
             <file>file:/C:/Users/Ardian/Documents/NetBeansProjects/tr_pl_e_perpustakaan/src/java/daos/UserDao.java</file>
             <file>file:/C:/Users/Ardian/Documents/NetBeansProjects/tr_pl_e_perpustakaan/src/java/utils/DBConfig.java</file>
+            <file>file:/C:/Users/Ardian/Documents/NetBeansProjects/tr_pl_e_perpustakaan/src/java/daos/TransactionDao.java</file>
             <file>file:/C:/Users/Ardian/Documents/NetBeansProjects/tr_pl_e_perpustakaan/src/java/daos/Query.java</file>
         </group>
     </open-files>
