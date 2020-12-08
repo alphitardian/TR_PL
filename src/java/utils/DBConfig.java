@@ -99,6 +99,24 @@ public class DBConfig {
         return resultSet;
     }
 
+    public boolean connectDBPreparedStatementDoQuery(String query, String[] value) {
+
+        try {
+            getConnection();
+
+            preparedStatement = connection.prepareStatement(query);
+            for (int i = 0; i < value.length; i++) {
+                preparedStatement.setString(i + 1, value[i]);
+            }
+
+            System.out.println("Connect DB ResultSet Success");
+            return preparedStatement.execute();
+        } catch (Exception e) {
+            System.out.println("Connect DB ResultSet PreparedStatement : " + e);
+            return false;
+        }
+    }
+
     public void deleteDataQuery(String query, String id) {
         try {
             getConnection();
@@ -141,4 +159,5 @@ public class DBConfig {
             System.out.println("Insert Data PreparedStatement : " + e);
         }
     }
+
 }
