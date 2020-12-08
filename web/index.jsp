@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : index
     Created on : Dec 3, 2020, 12:02:35 AM
     Author     : Ardian
@@ -6,6 +6,13 @@
 
 <%@page import="utils.DBConfig"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    if (session.isNew()) {
+        response.sendRedirect("login.jsp");
+    } else if (session.getAttribute("username") == null) {
+        response.sendRedirect("login.jsp");
+    }
+%>
 <!DOCTYPE html>
 <html>
     <head>

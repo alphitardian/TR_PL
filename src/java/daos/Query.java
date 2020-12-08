@@ -15,6 +15,7 @@ public enum Query {
     QUERY_GET_ALL_BORROWED("select * from borrowed"),
     QUERY_GET_ALL_PUBLISHER("select * from publisher"),
     QUERY_GET_USER_BY_ID("select * from user where user.id = ?"),
+    QUERY_GET_USER_BY_USERPASS("select * from user where user.username = ? and user.password = ?"),
     QUERY_GET_BOOK_BY_ID("select * from book where book.id = ?"),
     QUERY_GET_PUBLISHER_BY_ID("select * from publisher where publisher.id = ?"),
     QUERY_GET_BORROWED_BY_USER_ID("select * from borrowed where borrowed.user = ?"),
@@ -24,7 +25,7 @@ public enum Query {
     QUERY_INSERT_BOOK("insert into book (title, author, availability) values (?,?,?)"),
     QUERY_INSERT_BORROWED("insert into borrowed (book, user, due_date) values (?,?,?)"),
     QUERY_UPDATE_BOOK_AVAILABILITY("update book set availability = ?");
-    
+
     private final String displayName;
 
     Query(String displayName) {

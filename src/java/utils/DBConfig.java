@@ -17,12 +17,13 @@ import java.sql.Statement;
  * @author Ardian
  */
 public class DBConfig {
+
     private String dbDriver = "com.mysql.jdbc.Driver";
     private String dbUsername = "root";
     private String dbPassword = "";
     private String dbURL = "jdbc:mysql://localhost:3306/db_library?zeroDateTimeBehavior=convertToNull";
-    
-    private Connection connection; 
+
+    private Connection connection;
     private Statement statement;
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
@@ -44,7 +45,7 @@ public class DBConfig {
     public void setConnection(Connection connection) {
         this.connection = connection;
     }
-    
+
     public ResultSet connectDBResultSet(String query) throws SQLException {
         resultSet = null;
 
@@ -59,7 +60,7 @@ public class DBConfig {
 
         return resultSet;
     }
-    
+
     public ResultSet connectDBPreparedStatementSingleValue(String query, String value) {
         resultSet = null;
 
@@ -77,21 +78,41 @@ public class DBConfig {
 
         return resultSet;
     }
-    
+
+    public ResultSet connectDBPreparedStatement(String query, String[] value) {
+        resultSet = null;
+
+        try {
+            getConnection();
+
+            preparedStatement = connection.prepareStatement(query);
+            for (int i = 0; i < value.length; i++) {
+                preparedStatement.setString(i + 1, value[i]);
+            }
+
+            resultSet = preparedStatement.executeQuery();
+            System.out.println("Connect DB ResultSet Success");
+        } catch (Exception e) {
+            System.out.println("Connect DB ResultSet PreparedStatement : " + e);
+        }
+
+        return resultSet;
+    }
+
     public void deleteDataQuery(String query, String id) {
         try {
             getConnection();
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, id);
             preparedStatement.executeUpdate();
-            
+
             System.out.println("Delete Data Success");
         } catch (Exception e) {
             System.out.println("Delete Data PreparedStatement : " + e);
         }
     }
-    
-    public void queryInsertUser(String query, String name, String username,String password) {
+
+    public void queryInsertUser(String query, String name, String username, String password) {
         try {
             getConnection();
             preparedStatement = connection.prepareStatement(query);
@@ -99,14 +120,14 @@ public class DBConfig {
             preparedStatement.setString(2, username);
             preparedStatement.setString(3, password);
             preparedStatement.executeUpdate();
-            
+
             System.out.println("Insert Data Success");
         } catch (Exception e) {
             System.out.println("Insert Data PreparedStatement : " + e);
         }
     }
-    
-    public void queryInsertBook(String query, String title, String author,String availability) {
+
+    public void queryInsertBook(String query, String title, String author, String availability) {
         try {
             getConnection();
             preparedStatement = connection.prepareStatement(query);
@@ -114,7 +135,7 @@ public class DBConfig {
             preparedStatement.setString(2, author);
             preparedStatement.setString(3, availability);
             preparedStatement.executeUpdate();
-            
+
             System.out.println("Insert Data Success");
         } catch (Exception e) {
             System.out.println("Insert Data PreparedStatement : " + e);
