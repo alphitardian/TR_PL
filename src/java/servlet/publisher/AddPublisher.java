@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package publisher;
+package servlet.publisher;
 
 import daos.PublisherDao;
 import java.io.IOException;
@@ -38,7 +38,8 @@ public class AddPublisher extends HttpServlet {
         String telephone = request.getParameter("telephone");
 
         publisherDao.insert(name, address, telephone);
-        request.getRequestDispatcher("publisher.jsp?result=success").forward(request, response);
+
+        response.sendRedirect(request.getContextPath() + "/publisher.jsp");
 
     }
 
