@@ -39,7 +39,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Book.findByIsbn", query = "SELECT b FROM Book b WHERE b.isbn = :isbn")
     , @NamedQuery(name = "Book.findByTitle", query = "SELECT b FROM Book b WHERE b.title = :title")
     , @NamedQuery(name = "Book.findByAuthor", query = "SELECT b FROM Book b WHERE b.author = :author")
-    , @NamedQuery(name = "Book.findByAvailability", query = "SELECT b FROM Book b WHERE b.availability = :availability")})
+    , @NamedQuery(name = "Book.findByAvailability", query = "SELECT b FROM Book b WHERE b.availability = :availability")
+    , @NamedQuery(name = "Book.findByInitialStock", query = "SELECT b FROM Book b WHERE b.initialStock = :initialStock")})
 public class Book implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -68,6 +69,10 @@ public class Book implements Serializable {
     @Size(min = 1, max = 64)
     @Column(name = "availability")
     private String availability;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "initial_stock")
+    private int initialStock;
     @JoinColumn(name = "publisher", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Publisher publisher;
@@ -81,12 +86,13 @@ public class Book implements Serializable {
         this.id = id;
     }
 
-    public Book(Integer id, String isbn, String title, String author, String availability) {
+    public Book(Integer id, String isbn, String title, String author, String availability, int initialStock) {
         this.id = id;
         this.isbn = isbn;
         this.title = title;
         this.author = author;
         this.availability = availability;
+        this.initialStock = initialStock;
     }
 
     public Integer getId() {
@@ -127,6 +133,14 @@ public class Book implements Serializable {
 
     public void setAvailability(String availability) {
         this.availability = availability;
+    }
+
+    public int getInitialStock() {
+        return initialStock;
+    }
+
+    public void setInitialStock(int initialStock) {
+        this.initialStock = initialStock;
     }
 
     public Publisher getPublisher() {

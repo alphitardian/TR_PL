@@ -1,0 +1,63 @@
+<%-- any content can be specified here e.g.: --%>
+<%@page import="daos.UserDao"%>
+<%@page import="models.User"%>
+<%@page import="daos.BookDao"%>
+<%@page import="models.Book"%>
+<%@page import="models.Borrowed"%>
+<%@page import="daos.TransactionDao"%>
+<%@ page pageEncoding="UTF-8" %>
+<%@page import="daos.PublisherDao"%>
+<%@page import="models.Publisher"%>
+<%@page import="java.util.List"%>
+<%
+    
+    List<Book> book = new BookDao().getAll();
+    List<User> user = new UserDao().getAll();
+%>
+<!-- Modal -->
+<div class="modal fade" id="transactionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="AddTransaction" method="post" id="formEditTransaction">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Transaction</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="id" id="id">
+                    <div class="form-group">
+                        <label>Book</label>
+                        <select class="form-control" name="book" id="book">
+                            <%
+                                for (int i = 0; i < book.size(); i++) {
+                            %>
+                            <option value="<%= book.get(i).getId()%>"><%= book.get(i).getTitle()%></option>
+                            <% }%>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>User</label>
+                        <select class="form-control" name="user" id="user">
+                            <%
+                                for (int i = 0; i < user.size(); i++) {
+                                    System.out.println("User : " + user.get(i).getName());
+                            %>
+                            <option value="<%= user.get(i).getId()%>"><%= user.get(i).getName()%></option>
+                            <% }%>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Due Date</label>
+                        <input type="text" class="form-control" id="dueDate" name="dueDate">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
