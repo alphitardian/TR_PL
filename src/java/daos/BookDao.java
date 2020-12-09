@@ -27,6 +27,8 @@ public class BookDao {
 
     public List<Book> getAll() {
 
+        PublisherDao publisherDao = new PublisherDao();
+
         if (connection.getConnection() == null) {
             return null;
         } else {
@@ -40,8 +42,10 @@ public class BookDao {
                 while (resultSet.next()) {
                     Book book = new Book();
                     book.setId(resultSet.getInt("id"));
+                    book.setIsbn(resultSet.getString("isbn"));
                     book.setTitle(resultSet.getString("title"));
                     book.setAuthor(resultSet.getString("author"));
+                    book.setPublisher(publisherDao.getPublisherById(resultSet.getString("publisher")));
                     book.setAvailability(resultSet.getString("availability"));
                     result.add(book);
                 }
@@ -63,6 +67,8 @@ public class BookDao {
 
     public Book getBookById(int id) {
 
+        PublisherDao publisherDao = new PublisherDao();
+
         if (connection.getConnection() == null) {
             return null;
         } else {
@@ -73,8 +79,10 @@ public class BookDao {
 
                 while (resultSet.next()) {
                     book.setId(resultSet.getInt("id"));
+                    book.setIsbn(resultSet.getString("isbn"));
                     book.setTitle(resultSet.getString("title"));
                     book.setAuthor(resultSet.getString("author"));
+                    book.setPublisher(publisherDao.getPublisherById(resultSet.getString("publisher")));
                     book.setAvailability(resultSet.getString("availability"));
                 }
 

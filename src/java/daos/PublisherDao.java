@@ -61,7 +61,7 @@ public class PublisherDao {
         }
     }
 
-    public Publisher getBookById(int id) {
+    public Publisher getPublisherById(String id) {
 
         if (connection.getConnection() == null) {
             return null;
@@ -69,7 +69,8 @@ public class PublisherDao {
             Publisher publisher = new Publisher();
 
             try {
-                resultSet = connection.connectDBPreparedStatementSingleValue(Query.QUERY_GET_PUBLISHER_BY_ID.getDisplayName(), id + "");
+                String data[] = {id};
+                resultSet = connection.connectDBPreparedStatement(Query.QUERY_GET_PUBLISHER_BY_ID.getDisplayName(), data);
 
                 while (resultSet.next()) {
                     publisher.setId(resultSet.getInt("id"));

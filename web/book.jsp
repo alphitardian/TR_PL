@@ -128,13 +128,14 @@
                                             <tbody>
                                                 <%
                                                     for (int i = 0; i < book.size(); i++) {
+                                                        System.out.println("isbn" + book.get(i).getIsbn());
                                                 %>
                                                 <tr>
                                                     <td><%= book.get(i).getId()%></td>
                                                     <td><%= book.get(i).getIsbn()%></td>
                                                     <td><%= book.get(i).getTitle()%></td>
                                                     <td><%= book.get(i).getAuthor()%></td>
-                                                    <td><%= book.get(i).getPublisher()%></td>
+                                                    <td><%= book.get(i).getPublisher().getName()%></td>
                                                     <td><%= book.get(i).getAvailability()%></td>
                                                 </tr>
                                                 <% }%>
