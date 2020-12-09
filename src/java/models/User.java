@@ -21,22 +21,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Ardian
+ * @author kelvi
  */
 @Entity
-@Table(name = "user")
-@XmlRootElement
+@Table(name = "user", catalog = "db_library", schema = "")
 @NamedQueries({
-    @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
-    , @NamedQuery(name = "User.findById", query = "SELECT u FROM User u WHERE u.id = :id")
-    , @NamedQuery(name = "User.findByName", query = "SELECT u FROM User u WHERE u.name = :name")
-    , @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username")
-    , @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")})
+    @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -60,6 +53,10 @@ public class User implements Serializable {
     @Size(min = 1, max = 64)
     @Column(name = "password")
     private String password;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "role")
+    private int role;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
     private List<Borrowed> borrowedList;
 
@@ -70,11 +67,12 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public User(Integer id, String name, String username, String password) {
+    public User(Integer id, String name, String username, String password, int role) {
         this.id = id;
         this.name = name;
         this.username = username;
         this.password = password;
+        this.role = role;
     }
 
     public Integer getId() {
@@ -109,7 +107,14 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    @XmlTransient
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
+
     public List<Borrowed> getBorrowedList() {
         return borrowedList;
     }
@@ -142,5 +147,5 @@ public class User implements Serializable {
     public String toString() {
         return "models.User[ id=" + id + " ]";
     }
-    
+
 }

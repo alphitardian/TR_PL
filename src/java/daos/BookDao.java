@@ -125,13 +125,13 @@ public class BookDao {
         }
     }
 
-    public boolean insert(String isbn, String title, String author, String publisher, String availability) {
+    public boolean insert(String isbn, String title, String author, String publisher, String availability, String initialStock) {
 
         if (connection.getConnection() == null) {
             return false;
         } else {
             try {
-                String data[] = {isbn, title, author, publisher, availability};
+                String data[] = {isbn, title, author, publisher, availability, initialStock};
                 connection.connectDBPreparedStatementDoQuery(Query.QUERY_INSERT_BOOK.getDisplayName(), data);
 
                 preparedStatement.close();

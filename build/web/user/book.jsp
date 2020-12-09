@@ -126,8 +126,7 @@
                                                 </tr>
                                             </tfoot>
                                             <tbody>
-                                                <%
-                                                    for (int i = 0; i < book.size(); i++) {
+                                                <%                                                    for (int i = 0; i < book.size(); i++) {
                                                         System.out.println("isbn" + book.get(i).getIsbn());
                                                 %>
                                                 <tr>
@@ -174,7 +173,7 @@
 
         <!-- Logout Modal-->
         <%@ include file="components/logoutModal.jspf" %>
-
+        <%@ include file="components/profilModal.jspf" %>
 
         <!-- Bootstrap core JavaScript-->
         <script src="../assets/vendor/jquery/jquery.min.js"></script>
@@ -224,6 +223,18 @@
                 $(".modal-body #author").val("");
                 $(".modal-body #publisher").val("");
                 $(".modal-body #availability").val("");
+            });
+
+            $(document).on("click", ".btn-profil", function () {
+                var id = $(this).data('id');
+                var name = $(this).data('name');
+                var username = $(this).data('username');
+                var password = $(this).data('password');
+
+                $(".modal-body #id").val(id);
+                $(".modal-body #name").val(name);
+                $(".modal-body #username").val(username);
+                $(".modal-body #password").val(password);
             });
         </script>
 

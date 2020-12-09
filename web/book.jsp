@@ -152,6 +152,7 @@
                                                            data-isbn="<%= book.get(i).getIsbn()%>"
                                                            data-author="<%= book.get(i).getAuthor()%>"
                                                            data-publisher="<%= book.get(i).getPublisher().getId()%>"
+                                                           data-stock="<%= book.get(i).getInitialStock()%>"
                                                            data-availability="<%= book.get(i).getAvailability()%>"
                                                            >
                                                             Update
@@ -226,6 +227,7 @@
                 var title = $(this).data('title');
                 var author = $(this).data('author');
                 var publisher = $(this).data('publisher');
+                var stock = $(this).data('stock');
                 var availability = $(this).data('availability');
 
                 $(".modal-body #id").val(id);
@@ -233,6 +235,7 @@
                 $(".modal-body #title").val(title);
                 $(".modal-body #author").val(author);
                 $(".modal-body #publisher").val(publisher);
+                $(".modal-body #initial_stock").val(stock);
                 $(".modal-body #availability").val(availability);
             });
 
@@ -245,6 +248,7 @@
                 $(".modal-body #title").val("");
                 $(".modal-body #author").val("");
                 $(".modal-body #publisher").val("");
+                $(".modal-body #initial_stock").val("");
                 $(".modal-body #availability").val("");
             });
             

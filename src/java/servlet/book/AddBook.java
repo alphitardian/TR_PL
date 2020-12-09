@@ -37,11 +37,11 @@ public class AddBook extends HttpServlet {
         String author = request.getParameter("author");
         String publisher = request.getParameter("publisher");
         String availability = request.getParameter("availability");
-        String intial_stock = request.getParameter("intial_stock");
+        String initialStock = request.getParameter("initial_stock");
 
         BookDao bookDao = new BookDao();
 
-        bookDao.insert(isbn, title, author, publisher, availability);
+        bookDao.insert(isbn, title, author, publisher, availability, initialStock);
 
         response.sendRedirect(request.getContextPath() + "/book.jsp");
 

@@ -17,6 +17,12 @@
 %>
 
 <%
+    if (session.getAttribute("role") != null && session.getAttribute("role").toString().equalsIgnoreCase("1")) {
+        System.out.println("ROLE = " + session.getAttribute("role"));
+        response.sendRedirect("user/index.jsp");
+    }
+%>
+<%
     PublisherDao publisherDao = new PublisherDao();
 
     List<Publisher> publisher = publisherDao.getAll();

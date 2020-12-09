@@ -20,7 +20,7 @@
 <%
     UserDao userDao = new UserDao();
 
-    User user = userDao.getUserById(session.getAttribute("id").toString());
+    User users = userDao.getUserById(session.getAttribute("id").toString());
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -126,9 +126,9 @@
                                                     for (int i = 0; i < user.getBorrowedList().size(); i++) {
                                                 %>
                                                 <tr>
-                                                    <td><%= user.getBorrowedList().get(i).getId()%></td>
-                                                    <td><%= user.getBorrowedList().get(i).getBook().getTitle()%></td>
-                                                    <td><%= user.getBorrowedList().get(i).getDueDate()%></td>
+                                                    <td><%= users.getBorrowedList().get(i).getId()%></td>
+                                                    <td><%= users.getBorrowedList().get(i).getBook().getTitle()%></td>
+                                                    <td><%= users.getBorrowedList().get(i).getDueDate()%></td>
                                                 </tr>
                                                 <% }%>
                                             </tbody>
@@ -166,7 +166,7 @@
 
         <!-- Logout Modal-->
         <%@ include file="components/logoutModal.jspf" %>
-
+        <%@ include file="components/profilModal.jspf" %>
 
         <!-- Bootstrap core JavaScript-->
         <script src="../assets/vendor/jquery/jquery.min.js"></script>
@@ -216,6 +216,18 @@
                 $(".modal-body #author").val("");
                 $(".modal-body #publisher").val("");
                 $(".modal-body #availability").val("");
+            });
+            
+            $(document).on("click", ".btn-profil", function () {
+                var id = $(this).data('id');
+                var name = $(this).data('name');
+                var username = $(this).data('username');
+                var password = $(this).data('password');
+
+                $(".modal-body #id").val(id);
+                $(".modal-body #name").val(name);
+                $(".modal-body #username").val(username);
+                $(".modal-body #password").val(password);
             });
         </script>
 
