@@ -20,7 +20,7 @@
 <%
     UserDao userDao = new UserDao();
 
-    User user = userDao.getUserById(session.getId());
+    User user = userDao.getUserById(session.getAttribute("id").toString());
 %>
 <!DOCTYPE html>
 <html lang="en">
