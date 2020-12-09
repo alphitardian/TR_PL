@@ -47,6 +47,10 @@
                         <label>Availability</label>
                         <input type="text" class="form-control" id="availability" name="availability">
                     </div>
+                    <div class="form-group">
+                        <label>Initial Stock</label>
+                        <input type="text" class="form-control" id="initial_stock" name="initial_stock">
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
