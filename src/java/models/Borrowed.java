@@ -20,19 +20,15 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Ardian
+ * @author kelvi
  */
 @Entity
-@Table(name = "borrowed")
-@XmlRootElement
+@Table(name = "borrowed", catalog = "db_library", schema = "")
 @NamedQueries({
-    @NamedQuery(name = "Borrowed.findAll", query = "SELECT b FROM Borrowed b")
-    , @NamedQuery(name = "Borrowed.findById", query = "SELECT b FROM Borrowed b WHERE b.id = :id")
-    , @NamedQuery(name = "Borrowed.findByDueDate", query = "SELECT b FROM Borrowed b WHERE b.dueDate = :dueDate")})
+    @NamedQuery(name = "Borrowed.findAll", query = "SELECT b FROM Borrowed b")})
 public class Borrowed implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -46,6 +42,10 @@ public class Borrowed implements Serializable {
     @Size(min = 1, max = 10)
     @Column(name = "due_date")
     private String dueDate;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "status")
+    private int status;
     @JoinColumn(name = "book", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Book book;
@@ -60,9 +60,10 @@ public class Borrowed implements Serializable {
         this.id = id;
     }
 
-    public Borrowed(Integer id, String dueDate) {
+    public Borrowed(Integer id, String dueDate, int status) {
         this.id = id;
         this.dueDate = dueDate;
+        this.status = status;
     }
 
     public Integer getId() {
@@ -79,6 +80,14 @@ public class Borrowed implements Serializable {
 
     public void setDueDate(String dueDate) {
         this.dueDate = dueDate;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public Book getBook() {
@@ -121,5 +130,5 @@ public class Borrowed implements Serializable {
     public String toString() {
         return "models.Borrowed[ id=" + id + " ]";
     }
-    
+
 }

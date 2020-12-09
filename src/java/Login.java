@@ -50,10 +50,17 @@ public class Login extends HttpServlet {
             session.setAttribute("name", user.getName());
             session.setAttribute("username", user.getUsername());
             session.setAttribute("password", user.getPassword());
+            session.setAttribute("role", user.getRole());
             session.setAttribute("method", "signIn");
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            System.out.println(user.getRole());
+            if (user.getRole() == 0) {
+                response.sendRedirect(request.getContextPath() + "/index.jsp");
+            } else if (user.getRole() == 1) {
+                response.sendRedirect(request.getContextPath() + "/user/index.jsp");
+            }
         } else {
-            request.getRequestDispatcher("tes.jsp?error=error").forward(request, response);
+            response.sendRedirect(request.getContextPath() + "/user/index.jsp?err=error");
+
         }
     }
 

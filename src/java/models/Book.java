@@ -23,24 +23,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Ardian
+ * @author kelvi
  */
 @Entity
-@Table(name = "book")
-@XmlRootElement
+@Table(name = "book", catalog = "db_library", schema = "")
 @NamedQueries({
-    @NamedQuery(name = "Book.findAll", query = "SELECT b FROM Book b")
-    , @NamedQuery(name = "Book.findById", query = "SELECT b FROM Book b WHERE b.id = :id")
-    , @NamedQuery(name = "Book.findByIsbn", query = "SELECT b FROM Book b WHERE b.isbn = :isbn")
-    , @NamedQuery(name = "Book.findByTitle", query = "SELECT b FROM Book b WHERE b.title = :title")
-    , @NamedQuery(name = "Book.findByAuthor", query = "SELECT b FROM Book b WHERE b.author = :author")
-    , @NamedQuery(name = "Book.findByAvailability", query = "SELECT b FROM Book b WHERE b.availability = :availability")
-    , @NamedQuery(name = "Book.findByInitialStock", query = "SELECT b FROM Book b WHERE b.initialStock = :initialStock")})
+    @NamedQuery(name = "Book.findAll", query = "SELECT b FROM Book b")})
 public class Book implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -151,7 +142,6 @@ public class Book implements Serializable {
         this.publisher = publisher;
     }
 
-    @XmlTransient
     public List<Borrowed> getBorrowedList() {
         return borrowedList;
     }
@@ -184,5 +174,5 @@ public class Book implements Serializable {
     public String toString() {
         return "models.Book[ id=" + id + " ]";
     }
-    
+
 }

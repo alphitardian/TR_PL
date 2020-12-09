@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 09, 2020 at 07:58 AM
+-- Generation Time: Dec 09, 2020 at 08:56 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -103,16 +103,17 @@ CREATE TABLE `user` (
   `id` int(10) NOT NULL,
   `name` varchar(64) NOT NULL,
   `username` varchar(64) NOT NULL,
-  `password` varchar(64) NOT NULL
+  `password` varchar(64) NOT NULL,
+  `role` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `name`, `username`, `password`) VALUES
-(3, 'Kelvin Kurniawan O', 'kelvink', '12345678'),
-(4, 'Ardian Pramudya', 'cio030600', '12345678');
+INSERT INTO `user` (`id`, `name`, `username`, `password`, `role`) VALUES
+(3, 'Kelvin Kurniawan O', 'kelvink', '12345678', 0),
+(4, 'Ardian Pramudya', 'cio030600', '12345678', 1);
 
 --
 -- Indexes for dumped tables

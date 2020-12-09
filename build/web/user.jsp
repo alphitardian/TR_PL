@@ -16,6 +16,12 @@
 %>
 
 <%
+    if (session.getAttribute("role") != null && session.getAttribute("role").toString().equalsIgnoreCase("1")) {
+        System.out.println("ROLE = " + session.getAttribute("role"));
+        response.sendRedirect("user/index.jsp");
+    }
+%>
+<%
     UserDao userDao = new UserDao();
 
     List<User> User = userDao.getAll();

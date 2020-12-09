@@ -18,6 +18,12 @@
 %>
 
 <%
+    if (session.getAttribute("role") != null && session.getAttribute("role").toString().equalsIgnoreCase("1")) {
+        System.out.println("ROLE = " + session.getAttribute("role"));
+        response.sendRedirect("user/index.jsp");
+    }
+%>
+<%
     TransactionDao transactionDao = new TransactionDao();
 
     List<Borrowed> transaction = transactionDao.getAll();
@@ -133,8 +139,8 @@
                                                 %>
                                                 <tr>
                                                     <td><%= i + 1%></td>
-                                                    <td><%= transaction.get(i).getBook().getTitle() %></td>
-                                                    <td><%= transaction.get(i).getUser().getName() %></td>
+                                                    <td><%= transaction.get(i).getBook().getTitle()%></td>
+                                                    <td><%= transaction.get(i).getUser().getName()%></td>
                                                     <td><%= transaction.get(i).getDueDate()%></td>
                                                     <td>
                                                         <a href="#"
@@ -209,7 +215,7 @@
 
         <script>
             $('.dataTable-enable').DataTable();
-            
+
             var url_string = window.location.href; //window.location.href
             var url = new URL(url_string);
             var c = url.searchParams.get("open-modal");

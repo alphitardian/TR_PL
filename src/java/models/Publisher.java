@@ -21,22 +21,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Ardian
+ * @author kelvi
  */
 @Entity
-@Table(name = "publisher")
-@XmlRootElement
+@Table(name = "publisher", catalog = "db_library", schema = "")
 @NamedQueries({
-    @NamedQuery(name = "Publisher.findAll", query = "SELECT p FROM Publisher p")
-    , @NamedQuery(name = "Publisher.findById", query = "SELECT p FROM Publisher p WHERE p.id = :id")
-    , @NamedQuery(name = "Publisher.findByName", query = "SELECT p FROM Publisher p WHERE p.name = :name")
-    , @NamedQuery(name = "Publisher.findByAddress", query = "SELECT p FROM Publisher p WHERE p.address = :address")
-    , @NamedQuery(name = "Publisher.findByTelephone", query = "SELECT p FROM Publisher p WHERE p.telephone = :telephone")})
+    @NamedQuery(name = "Publisher.findAll", query = "SELECT p FROM Publisher p")})
 public class Publisher implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -109,7 +102,6 @@ public class Publisher implements Serializable {
         this.telephone = telephone;
     }
 
-    @XmlTransient
     public List<Book> getBookList() {
         return bookList;
     }
@@ -142,5 +134,5 @@ public class Publisher implements Serializable {
     public String toString() {
         return "models.Publisher[ id=" + id + " ]";
     }
-    
+
 }

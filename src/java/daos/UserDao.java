@@ -45,6 +45,7 @@ public class UserDao {
                     user.setName(resultSet.getString("name"));
                     user.setUsername(resultSet.getString("username"));
                     user.setPassword(resultSet.getString("password"));
+                    user.setRole(resultSet.getInt("role"));
                     result.add(user);
                 }
 
@@ -199,6 +200,7 @@ public class UserDao {
                     user.setName(resultSet.getString("name"));
                     user.setUsername(resultSet.getString("username"));
                     user.setPassword(resultSet.getString("password"));
+                    user.setRole(resultSet.getInt("role"));
                 }
 
                 System.out.println("User Found!!");
