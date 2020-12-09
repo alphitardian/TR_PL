@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import models.Borrowed;
 import models.User;
 import utils.DBConfig;
 
@@ -61,7 +62,26 @@ public class UserDao {
         }
     }
 
-    public User getUserById(int id) {
+    public User getUserById(String id) {
+
+        BookDao bookDao = new BookDao();
+        List<Borrowed> borroweds = new ArrayList<>();
+        String data[] = {id};
+
+        try {
+            resultSet = connection.connectDBPreparedStatement(Query.QUERY_GET_BORROWED_BY_USER_ID.getDisplayName(), data);
+
+            while (resultSet.next()) {
+                Borrowed b = new Borrowed();
+                b.setBook(bookDao.getBookById(resultSet.getInt("book")));
+                b.setDueDate(resultSet.getString("due_date"));
+
+                borroweds.add(b);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
 
         if (connection.getConnection() == null) {
             return null;
@@ -76,6 +96,7 @@ public class UserDao {
                     user.setName(resultSet.getString("name"));
                     user.setUsername(resultSet.getString("username"));
                     user.setPassword(resultSet.getString("password"));
+                    user.setBorrowedList(borroweds);
                 }
 
                 preparedStatement.close();

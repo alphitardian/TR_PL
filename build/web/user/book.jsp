@@ -1,7 +1,7 @@
 <%--
-    Document   : index
-    Created on : Dec 3, 2020, 12:02:35 AM
-    Author     : Ardian
+    Document   : book
+    Created on : Dec 9, 2020, 11:59:35 AM
+    Author     : Kelvin
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="daos.BookDao"%>
@@ -34,16 +34,16 @@
         <title>Books - PerpusApp</title>
 
         <!-- Custom fonts for this template-->
-        <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+        <link href="../assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
         <link
             href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
             rel="stylesheet">
 
         <!-- Custom styles for this template-->
-        <link href="assets/css/sb-admin-2.min.css" rel="stylesheet">
+        <link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
 
         <!-- Custom styles for this page -->
-        <link href="assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+        <link href="../assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
     </head>
 
@@ -113,7 +113,6 @@
                                                     <th>Author</th>
                                                     <th>Publisher</th>
                                                     <th>Availability</th>
-                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tfoot>
@@ -124,7 +123,6 @@
                                                     <th>Author</th>
                                                     <th>Publisher</th>
                                                     <th>Availability</th>
-                                                    <th>Action</th>
                                                 </tr>
                                             </tfoot>
                                             <tbody>
@@ -139,22 +137,6 @@
                                                     <td><%= book.get(i).getAuthor()%></td>
                                                     <td><%= book.get(i).getPublisher().getName()%></td>
                                                     <td><%= book.get(i).getAvailability()%></td>
-                                                    <td>
-                                                        <a href="#"
-                                                           data-toggle="modal"
-                                                           data-target="#bookModal"
-                                                           class="btn btn-info btn-sm btn-edit m-1"
-                                                           data-id="<%= book.get(i).getId()%>"
-                                                           data-title="<%= book.get(i).getTitle()%>"
-                                                           data-isbn="<%= book.get(i).getIsbn()%>"
-                                                           data-author="<%= book.get(i).getAuthor()%>"
-                                                           data-publisher="<%= book.get(i).getPublisher().getId()%>"
-                                                           data-availability="<%= book.get(i).getAvailability()%>"
-                                                           >
-                                                            Update
-                                                        </a>
-                                                        <a href="DeleteBook?id=<%= book.get(i).getId()%>" class="btn btn-danger btn-sm m-1">Delete</a>
-                                                    </td>
                                                 </tr>
                                                 <% }%>
                                             </tbody>
@@ -192,25 +174,24 @@
 
         <!-- Logout Modal-->
         <%@ include file="components/logoutModal.jspf" %>
-        <%@ include file="components/bookModal.jspf" %>
 
 
         <!-- Bootstrap core JavaScript-->
-        <script src="assets/vendor/jquery/jquery.min.js"></script>
-        <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="../assets/vendor/jquery/jquery.min.js"></script>
+        <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
         <!-- Core plugin JavaScript-->
-        <script src="assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+        <script src="../assets/vendor/jquery-easing/jquery.easing.min.js"></script>
 
         <!-- Custom scripts for all pages-->
-        <script src="assets/js/sb-admin-2.min.js"></script>
+        <script src="../assets/js/sb-admin-2.min.js"></script>
 
         <!-- Page level plugins -->
-        <script src="assets/vendor/chart.js/Chart.min.js"></script>
+        <script src="../assets/vendor/chart.js/Chart.min.js"></script>
 
         <!-- Page level plugins -->
-        <script src="assets/vendor/datatables/jquery.dataTables.min.js"></script>
-        <script src="assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+        <script src="../assets/vendor/datatables/jquery.dataTables.min.js"></script>
+        <script src="../assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
         <script>
             $('.dataTable-enable').DataTable();
