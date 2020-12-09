@@ -46,7 +46,7 @@ public class TransactionDao {
                     Borrowed borrowed = new Borrowed();
                     borrowed.setId(resultSet.getInt("id"));
                     borrowed.setBook(bookDao.getBookById(resultSet.getInt("book")));
-                    borrowed.setUser(userDao.getUserById(resultSet.getInt("user")));
+                    borrowed.setUser(userDao.getUserById(resultSet.getString("user")));
                     borrowed.setDueDate(resultSet.getString("due_date"));
                     result.add(borrowed);
                 }
