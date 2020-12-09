@@ -225,6 +225,18 @@
                 $(".modal-body #username").val("");
                 $(".modal-body #password").val("");
             });
+            
+            $(document).on("click", ".btn-profil", function () {
+                var id = $(this).data('id');
+                var name = $(this).data('name');
+                var username = $(this).data('username');
+                var password = $(this).data('password');
+
+                $(".modal-body #id").val(id);
+                $(".modal-body #name").val(name);
+                $(".modal-body #username").val(username);
+                $(".modal-body #password").val(password);
+            });
         </script>
 
     </body>
