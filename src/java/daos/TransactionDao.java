@@ -28,6 +28,10 @@ public class TransactionDao {
     DBConfig connection = new DBConfig();
     
     public List<Borrowed> getAll() {
+        
+        BookDao bookDao = new BookDao();
+        UserDao userDao = new UserDao();
+        
         if (connection.getConnection() == null) {
             return null;
         } else {
@@ -41,8 +45,8 @@ public class TransactionDao {
                 while (resultSet.next()) {
                     Borrowed borrowed = new Borrowed();
                     borrowed.setId(resultSet.getInt("id"));
-                    borrowed.setBook(resultSet.getObject("book", new Book().getClass()));
-                    borrowed.setUser(resultSet.getObject("user", new User().getClass()));
+                    borrowed.setBook(bookDao.getBookById(resultSet.getInt("book")));
+                    borrowed.setUser(userDao.getUserById(resultSet.getInt("user")));
                     borrowed.setDueDate(resultSet.getString("due_date"));
                     result.add(borrowed);
                 }
@@ -117,6 +121,42 @@ public class TransactionDao {
             
             return true;
             
+        }
+    }
+    
+    public boolean update(String id, String book, String user, String dueDate) {
+        if (connection.getConnection() == null) {
+            return false;
+        } else {
+            try {
+                String[] data = {book, user, dueDate, id};
+                return connection.connectDBPreparedStatementDoQuery(Query.QUERY_UPDATE_BORROWED.getDisplayName(), data);
+            } catch (Exception e) {
+                System.out.println("Error : " + e);
+            }
+        }
+        return false;
+    }
+    
+    public boolean delete(String id) {
+
+        if (connection.getConnection() == null) {
+            return false;
+        } else {
+            try {
+                connection.deleteDataQuery(Query.QUERY_DELETE_BORROWED.getDisplayName(), id);
+
+                preparedStatement.close();
+                connection.getConnection().close();
+
+                System.out.println("Delete Book Data By Id Success");
+
+            } catch (Exception e) {
+                System.out.println("Exception delete Book : " + e);
+            }
+
+            return true;
+
         }
     }
     
