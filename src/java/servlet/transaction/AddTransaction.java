@@ -7,7 +7,6 @@ package servlet.transaction;
 
 import daos.TransactionDao;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,6 +34,8 @@ public class AddTransaction extends HttpServlet {
         String book = request.getParameter("book");
         String user = request.getParameter("user");
         String dueDate = request.getParameter("dueDate");
+
+        System.out.println(book + " " + user + " " + dueDate);
 
         TransactionDao transactionDao = new TransactionDao();
 

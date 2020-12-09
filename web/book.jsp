@@ -113,6 +113,7 @@
                                                     <th>Author</th>
                                                     <th>Publisher</th>
                                                     <th>Availability</th>
+                                                    <th>Stock</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -124,6 +125,7 @@
                                                     <th>Author</th>
                                                     <th>Publisher</th>
                                                     <th>Availability</th>
+                                                    <th>Stock</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </tfoot>
@@ -139,6 +141,7 @@
                                                     <td><%= book.get(i).getAuthor()%></td>
                                                     <td><%= book.get(i).getPublisher().getName()%></td>
                                                     <td><%= book.get(i).getAvailability()%></td>
+                                                    <td><%= book.get(i).getInitialStock()%></td>
                                                     <td>
                                                         <a href="#"
                                                            data-toggle="modal"

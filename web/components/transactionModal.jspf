@@ -10,9 +10,11 @@
 <%@page import="models.Publisher"%>
 <%@page import="java.util.List"%>
 <%
-    
-    List<Book> book = new BookDao().getAll();
-    List<User> user = new UserDao().getAll();
+    BookDao bookDao = new BookDao();
+    UserDao userDao = new UserDao();
+
+    List<Book> book = bookDao.getAll();
+    List<User> user = userDao.getAll();
 %>
 <!-- Modal -->
 <div class="modal fade" id="transactionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -42,7 +44,6 @@
                         <select class="form-control" name="user" id="user">
                             <%
                                 for (int i = 0; i < user.size(); i++) {
-                                    System.out.println("User : " + user.get(i).getName());
                             %>
                             <option value="<%= user.get(i).getId()%>"><%= user.get(i).getName()%></option>
                             <% }%>

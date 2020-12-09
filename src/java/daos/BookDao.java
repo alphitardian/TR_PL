@@ -28,6 +28,7 @@ public class BookDao {
     public List<Book> getAll() {
 
         PublisherDao publisherDao = new PublisherDao();
+        BorrowDao borrowDao = new BorrowDao();
 
         if (connection.getConnection() == null) {
             return null;
@@ -45,6 +46,7 @@ public class BookDao {
                     book.setIsbn(resultSet.getString("isbn"));
                     book.setTitle(resultSet.getString("title"));
                     book.setAuthor(resultSet.getString("author"));
+                    book.setInitialStock(resultSet.getInt("initial_stock") - borrowDao.getBorrowedByBook(resultSet.getString("id")).size());
                     book.setPublisher(publisherDao.getPublisherById(resultSet.getString("publisher")));
                     book.setAvailability(resultSet.getString("availability"));
                     result.add(book);

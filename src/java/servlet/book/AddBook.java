@@ -37,6 +37,7 @@ public class AddBook extends HttpServlet {
         String author = request.getParameter("author");
         String publisher = request.getParameter("publisher");
         String availability = request.getParameter("availability");
+        String intial_stock = request.getParameter("intial_stock");
 
         BookDao bookDao = new BookDao();
 
