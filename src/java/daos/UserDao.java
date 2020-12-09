@@ -74,6 +74,7 @@ public class UserDao {
 
             while (resultSet.next()) {
                 Borrowed b = new Borrowed();
+                b.setId(resultSet.getInt("id"));
                 b.setBook(bookDao.getBookById(resultSet.getInt("book")));
                 b.setDueDate(resultSet.getString("due_date"));
 
