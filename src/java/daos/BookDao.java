@@ -101,7 +101,7 @@ public class BookDao {
         }
     }
 
-    public boolean deleteBook(int id) {
+    public boolean delete(String id) {
 
         if (connection.getConnection() == null) {
             return false;
@@ -144,6 +144,20 @@ public class BookDao {
             return true;
 
         }
+    }
+
+    public boolean update(String id, String isbn, String title, String author, String publisher, String availability) {
+        if (connection.getConnection() == null) {
+            return false;
+        } else {
+            try {
+                String[] data = {isbn, title, author, publisher, availability, id};
+                return connection.connectDBPreparedStatementDoQuery(Query.QUERY_UPDATE_BOOK.getDisplayName(), data);
+            } catch (Exception e) {
+                System.out.println("Error : " + e);
+            }
+        }
+        return false;
     }
 
     public boolean updateAvailability(String availability) {
