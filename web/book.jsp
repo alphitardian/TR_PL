@@ -113,6 +113,7 @@
                                                     <th>Author</th>
                                                     <th>Publisher</th>
                                                     <th>Availability</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tfoot>
@@ -123,6 +124,7 @@
                                                     <th>Author</th>
                                                     <th>Publisher</th>
                                                     <th>Availability</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </tfoot>
                                             <tbody>
@@ -131,12 +133,28 @@
                                                         System.out.println("isbn" + book.get(i).getIsbn());
                                                 %>
                                                 <tr>
-                                                    <td><%= book.get(i).getId()%></td>
+                                                    <td><%= i + 1%></td>
                                                     <td><%= book.get(i).getIsbn()%></td>
                                                     <td><%= book.get(i).getTitle()%></td>
                                                     <td><%= book.get(i).getAuthor()%></td>
                                                     <td><%= book.get(i).getPublisher().getName()%></td>
                                                     <td><%= book.get(i).getAvailability()%></td>
+                                                    <td>
+                                                        <a href="#"
+                                                           data-toggle="modal"
+                                                           data-target="#bookModal"
+                                                           class="btn btn-info btn-sm btn-edit m-1"
+                                                           data-id="<%= book.get(i).getId()%>"
+                                                           data-title="<%= book.get(i).getTitle()%>"
+                                                           data-isbn="<%= book.get(i).getIsbn()%>"
+                                                           data-author="<%= book.get(i).getAuthor()%>"
+                                                           data-publisher="<%= book.get(i).getPublisher().getId()%>"
+                                                           data-availability="<%= book.get(i).getAvailability()%>"
+                                                           >
+                                                            Update
+                                                        </a>
+                                                        <a href="DeleteBook?id=<%= book.get(i).getId()%>" class="btn btn-danger btn-sm m-1">Delete</a>
+                                                    </td>
                                                 </tr>
                                                 <% }%>
                                             </tbody>
@@ -196,6 +214,36 @@
 
         <script>
             $('.dataTable-enable').DataTable();
+
+            $(document).on("click", ".btn-edit", function () {
+                $('#formEditBook').attr('action', "UpdateBook");
+
+                var id = $(this).data('id');
+                var isbn = $(this).data('isbn');
+                var title = $(this).data('title');
+                var author = $(this).data('author');
+                var publisher = $(this).data('publisher');
+                var availability = $(this).data('availability');
+
+                $(".modal-body #id").val(id);
+                $(".modal-body #isbn").val(isbn);
+                $(".modal-body #title").val(title);
+                $(".modal-body #author").val(author);
+                $(".modal-body #publisher").val(publisher);
+                $(".modal-body #availability").val(availability);
+            });
+
+            $(document).on("click", ".btn-add", function () {
+
+                $('#formEditBook').attr('action', "AddBook");
+
+                $(".modal-body #id").val("");
+                $(".modal-body #isbn").val("");
+                $(".modal-body #title").val("");
+                $(".modal-body #author").val("");
+                $(".modal-body #publisher").val("");
+                $(".modal-body #availability").val("");
+            });
         </script>
 
     </body>
