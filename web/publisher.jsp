@@ -74,7 +74,7 @@
                         <!-- Page Heading -->
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
                             <h1 class="h3 mb-0 text-gray-800">Publisher</h1>
-                            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#publisherModal"><i class="fas fa-plus fa-sm text-white-50"></i> Add Publisher</a>
+                            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm btn-add" data-toggle="modal" data-target="#publisherModal"><i class="fas fa-plus fa-sm text-white-50"></i> Add Publisher</a>
                         </div>
 
                         <!-- Content Row -->
@@ -131,7 +131,17 @@
                                                     <td><%= publisher.get(i).getAddress()%></th>
                                                     <td><%= publisher.get(i).getTelephone()%></td>
                                                     <td>
-                                                        <a href="#" class="btn btn-info btn-sm">Update</a>                                                                                               <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                                                        <a href="#"
+                                                           data-toggle="modal"
+                                                           data-target="#publisherModal"
+                                                           class="btn btn-info btn-sm btn-edit"
+                                                           data-id="<%= publisher.get(i).getId()%>"
+                                                           data-name="<%= publisher.get(i).getName()%>"
+                                                           data-address="<%= publisher.get(i).getAddress()%>"
+                                                           data-telephone="<%= publisher.get(i).getTelephone()%>">
+                                                            Update
+                                                        </a>
+                                                        <a href="deletePublisher?id=<%= publisher.get(i).getId()%>" class="btn btn-danger btn-sm">Delete</a>
                                                     </td>
                                                 </tr>
                                                 <% }%>
@@ -193,6 +203,29 @@
 
         <script>
             $('.dataTable-enable').DataTable();
+
+            $(document).on("click", ".btn-edit", function () {
+                $('#formEditPublisher').attr('action', "UpdatePublisher");
+
+                var id = $(this).data('id');
+                var name = $(this).data('name');
+                var address = $(this).data('address');
+                var telephone = $(this).data('telephone');
+
+                $(".modal-body #id").val(id);
+                $(".modal-body #name").val(name);
+                $(".modal-body #address").val(address);
+                $(".modal-body #telephone").val(telephone);
+            });
+
+            $(document).on("click", ".btn-add", function () {
+                $('#formEditPublisher').attr('action', "AddPublisher");
+
+                $(".modal-body #id").val("");
+                $(".modal-body #name").val("");
+                $(".modal-body #address").val("");
+                $(".modal-body #telephone").val("");
+            });
             //$('#publisherModal').modal('show');
         </script>
 

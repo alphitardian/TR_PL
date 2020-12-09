@@ -25,7 +25,9 @@ public enum Query {
     QUERY_INSERT_BOOK("insert into book (title, author, availability) values (?,?,?)"),
     QUERY_INSERT_BORROWED("insert into borrowed (book, user, due_date) values (?,?,?)"),
     QUERY_UPDATE_BOOK_AVAILABILITY("update book set availability = ?"),
-    QUERY_INSERT_PUBLISHER("insert into publisher (name, address, telephone) values (?, ?, ?)");
+    QUERY_INSERT_PUBLISHER("insert into publisher (name, address, telephone) values (?, ?, ?)"),
+    QUERY_DELETE_PUBLISHER("delete from publisher where id = ?"),
+    QUERY_UPDATE_PUBLISHER("update publisher set name = ?, address = ?, telephone = ? where id = ?");
 
     private final String displayName;
 

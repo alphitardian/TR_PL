@@ -107,4 +107,32 @@ public class PublisherDao {
         return false;
     }
 
+    public boolean delete(String id) {
+        if (connection.getConnection() == null) {
+            return false;
+        } else {
+            try {
+                String[] data = {id};
+                return connection.connectDBPreparedStatementDoQuery(Query.QUERY_DELETE_PUBLISHER.getDisplayName(), data);
+            } catch (Exception e) {
+                System.out.println("Error : " + e);
+            }
+        }
+        return false;
+    }
+
+    public boolean update(String id, String name, String address, String telephone) {
+        if (connection.getConnection() == null) {
+            return false;
+        } else {
+            try {
+                String[] data = {name, address, telephone, id};
+                return connection.connectDBPreparedStatementDoQuery(Query.QUERY_UPDATE_PUBLISHER.getDisplayName(), data);
+            } catch (Exception e) {
+                System.out.println("Error : " + e);
+            }
+        }
+        return false;
+    }
+
 }
