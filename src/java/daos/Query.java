@@ -22,7 +22,7 @@ public enum Query {
     QUERY_DELETE_USER("delete from user where user.id = ?"),
     QUERY_DELETE_BOOK("delete from book where book.id = ?"),
     QUERY_INSERT_USER("insert into user (name, username, password) values (?,?,?)"),
-    QUERY_INSERT_BOOK("insert into book (title, author, availability) values (?,?,?)"),
+    QUERY_INSERT_BOOK("insert into book (isbn, title, author, publisher, availability) values (?, ?, ?, ?, ?)"),
     QUERY_INSERT_BORROWED("insert into borrowed (book, user, due_date) values (?,?,?)"),
     QUERY_UPDATE_BOOK_AVAILABILITY("update book set availability = ?"),
     QUERY_INSERT_PUBLISHER("insert into publisher (name, address, telephone) values (?, ?, ?)"),
