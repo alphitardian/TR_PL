@@ -1,7 +1,7 @@
 <%--
     Document   : index
     Created on : Dec 3, 2020, 12:02:35 AM
-    Author     : 
+    Author     :
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="daos.UserDao"%>
@@ -73,7 +73,7 @@
                         <!-- Page Heading -->
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
                             <h1 class="h3 mb-0 text-gray-800">Users</h1>
-                            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm btn-add" data-toggle="modal" data-target="#bookModal"><i class="fas fa-plus fa-sm text-white-50"></i> Add User</a>
+                            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm btn-add" data-toggle="modal" data-target="#userModal"><i class="fas fa-plus fa-sm text-white-50"></i> Add User</a>
                         </div>
 
                         <!-- Content Row -->
@@ -110,6 +110,7 @@
                                                     <th>ID</th>
                                                     <th>Name</th>
                                                     <th>Username</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tfoot>
@@ -117,17 +118,31 @@
                                                     <th>ID</th>
                                                     <th>Name</th>
                                                     <th>Username</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </tfoot>
                                             <tbody>
                                                 <%
                                                     for (int i = 0; i < User.size(); i++) {
-                                                        System.out.println("isbn" + User.get(i).getId());
                                                 %>
                                                 <tr>
                                                     <td><%= User.get(i).getId()%></td>
                                                     <td><%= User.get(i).getName()%></td>
                                                     <td><%= User.get(i).getUsername()%></td>
+
+                                                    <td>
+                                                        <a href="#"
+                                                           data-toggle="modal"
+                                                           data-target="#userModal"
+                                                           class="btn btn-info btn-sm btn-edit"
+                                                           data-id="<%= User.get(i).getId()%>"
+                                                           data-name="<%= User.get(i).getName()%>"
+                                                           data-username="<%= User.get(i).getUsername()%>"
+                                                           data-password="<%= User.get(i).getPassword()%>">
+                                                            Update
+                                                        </a>
+                                                        <a href="DeletUser?id=<%= User.get(i).getId()%>" class="btn btn-danger btn-sm">Delete</a>
+                                                    </td>
                                                 </tr>
                                                 <% }%>
                                             </tbody>
@@ -165,7 +180,7 @@
 
         <!-- Logout Modal-->
         <%@ include file="components/logoutModal.jspf" %>
-        <%@ include file="components/bookModal.jspf" %>
+        <%@ include file="components/userModal.jspf" %>
 
 
         <!-- Bootstrap core JavaScript-->
@@ -187,6 +202,29 @@
 
         <script>
             $('.dataTable-enable').DataTable();
+
+            $(document).on("click", ".btn-edit", function () {
+                $('#formEditUser').attr('action', "UpdateUser");
+
+                var id = $(this).data('id');
+                var name = $(this).data('name');
+                var username = $(this).data('username');
+                var password = $(this).data('password');
+
+                $(".modal-body #id").val(id);
+                $(".modal-body #name").val(name);
+                $(".modal-body #username").val(username);
+                $(".modal-body #password").val(password);
+            });
+
+            $(document).on("click", ".btn-add", function () {
+                $('#formEditUser').attr('action', "AddUser");
+
+                $(".modal-body #id").val("");
+                $(".modal-body #name").val("");
+                $(".modal-body #username").val("");
+                $(".modal-body #password").val("");
+            });
         </script>
 
     </body>

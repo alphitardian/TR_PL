@@ -70,8 +70,8 @@
         <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Menus:</h6>
-                <a class="collapse-item" href="book.jsp">View User</a>
-                <a class="collapse-item" href="book.jsp?open-modal=yes">Add a user</a>
+                <a class="collapse-item" href="user.jsp">View User</a>
+                <a class="collapse-item" href="user.jsp?open-modal=yes">Add a user</a>
             </div>
         </div>
     </li>

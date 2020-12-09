@@ -1,11 +1,11 @@
 <%--
     Document   : index
     Created on : Dec 3, 2020, 12:02:35 AM
-    Author     :
+    Author     : Ardian
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="daos.UserDao"%>
-<%@page import="models.User"%>
+<%@page import="daos.BookDao"%>
+<%@page import="models.Book"%>
 <%@page import="java.util.List"%>
 <%
     if (session.isNew()) {
@@ -16,9 +16,9 @@
 %>
 
 <%
-    UserDao userDao = new UserDao();
+    BookDao bookDao = new BookDao();
 
-    List<User> User = userDao.getAll();
+    List<Book> book = bookDao.getAll();
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +31,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>User - PerpusApp</title>
+        <title>Books - PerpusApp</title>
 
         <!-- Custom fonts for this template-->
         <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -72,8 +72,8 @@
 
                         <!-- Page Heading -->
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">Users</h1>
-                            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm btn-add" data-toggle="modal" data-target="#userModal"><i class="fas fa-plus fa-sm text-white-50"></i> Add User</a>
+                            <h1 class="h3 mb-0 text-gray-800">Books</h1>
+                            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm btn-add" data-toggle="modal" data-target="#bookModal"><i class="fas fa-plus fa-sm text-white-50"></i> Add Book</a>
                         </div>
 
                         <!-- Content Row -->
@@ -86,7 +86,7 @@
                                     <!-- Card Header - Dropdown -->
                                     <div
                                         class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                        <h6 class="m-0 font-weight-bold text-primary">User Overview</h6>
+                                        <h6 class="m-0 font-weight-bold text-primary">Book Overview</h6>
                                         <div class="dropdown no-arrow">
                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -108,40 +108,52 @@
                                             <thead>
                                                 <tr>
                                                     <th>ID</th>
-                                                    <th>Name</th>
-                                                    <th>Username</th>
+                                                    <th>ISBN</th>
+                                                    <th>Title</th>
+                                                    <th>Author</th>
+                                                    <th>Publisher</th>
+                                                    <th>Availability</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tfoot>
                                                 <tr>
                                                     <th>ID</th>
-                                                    <th>Name</th>
-                                                    <th>Username</th>
+                                                    <th>ISBN</th>
+                                                    <th>Title</th>
+                                                    <th>Author</th>
+                                                    <th>Publisher</th>
+                                                    <th>Availability</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </tfoot>
                                             <tbody>
                                                 <%
-                                                    for (int i = 0; i < User.size(); i++) {
+                                                    for (int i = 0; i < book.size(); i++) {
+                                                        System.out.println("isbn" + book.get(i).getIsbn());
                                                 %>
                                                 <tr>
-                                                    <td><%= User.get(i).getId()%></td>
-                                                    <td><%= User.get(i).getName()%></td>
-                                                    <td><%= User.get(i).getUsername()%></td>
-
+                                                    <td><%= i + 1%></td>
+                                                    <td><%= book.get(i).getIsbn()%></td>
+                                                    <td><%= book.get(i).getTitle()%></td>
+                                                    <td><%= book.get(i).getAuthor()%></td>
+                                                    <td><%= book.get(i).getPublisher().getName()%></td>
+                                                    <td><%= book.get(i).getAvailability()%></td>
                                                     <td>
                                                         <a href="#"
                                                            data-toggle="modal"
-                                                           data-target="#userModal"
-                                                           class="btn btn-info btn-sm btn-edit"
-                                                           data-id="<%= User.get(i).getId()%>"
-                                                           data-name="<%= User.get(i).getName()%>"
-                                                           data-username="<%= User.get(i).getUsername()%>"
-                                                           data-password="<%= User.get(i).getPassword()%>">
+                                                           data-target="#bookModal"
+                                                           class="btn btn-info btn-sm btn-edit m-1"
+                                                           data-id="<%= book.get(i).getId()%>"
+                                                           data-title="<%= book.get(i).getTitle()%>"
+                                                           data-isbn="<%= book.get(i).getIsbn()%>"
+                                                           data-author="<%= book.get(i).getAuthor()%>"
+                                                           data-publisher="<%= book.get(i).getPublisher().getId()%>"
+                                                           data-availability="<%= book.get(i).getAvailability()%>"
+                                                           >
                                                             Update
                                                         </a>
-                                                        <a href="DeletUser?id=<%= User.get(i).getId()%>" class="btn btn-danger btn-sm">Delete</a>
+                                                        <a href="DeleteBook?id=<%= book.get(i).getId()%>" class="btn btn-danger btn-sm m-1">Delete</a>
                                                     </td>
                                                 </tr>
                                                 <% }%>
@@ -180,7 +192,7 @@
 
         <!-- Logout Modal-->
         <%@ include file="components/logoutModal.jspf" %>
-        <%@ include file="components/userModal.jspf" %>
+        <%@ include file="components/bookModal.jspf" %>
 
 
         <!-- Bootstrap core JavaScript-->
@@ -204,26 +216,33 @@
             $('.dataTable-enable').DataTable();
 
             $(document).on("click", ".btn-edit", function () {
-                $('#formEditUser').attr('action', "UpdateUser");
+                $('#formEditBook').attr('action', "UpdateBook");
 
                 var id = $(this).data('id');
-                var name = $(this).data('name');
-                var username = $(this).data('username');
-                var password = $(this).data('password');
+                var isbn = $(this).data('isbn');
+                var title = $(this).data('title');
+                var author = $(this).data('author');
+                var publisher = $(this).data('publisher');
+                var availability = $(this).data('availability');
 
                 $(".modal-body #id").val(id);
-                $(".modal-body #name").val(name);
-                $(".modal-body #username").val(username);
-                $(".modal-body #password").val(password);
+                $(".modal-body #isbn").val(isbn);
+                $(".modal-body #title").val(title);
+                $(".modal-body #author").val(author);
+                $(".modal-body #publisher").val(publisher);
+                $(".modal-body #availability").val(availability);
             });
 
             $(document).on("click", ".btn-add", function () {
-                $('#formEditUser').attr('action', "AddUser");
+
+                $('#formEditBook').attr('action', "AddBook");
 
                 $(".modal-body #id").val("");
-                $(".modal-body #name").val("");
-                $(".modal-body #username").val("");
-                $(".modal-body #password").val("");
+                $(".modal-body #isbn").val("");
+                $(".modal-body #title").val("");
+                $(".modal-body #author").val("");
+                $(".modal-body #publisher").val("");
+                $(".modal-body #availability").val("");
             });
         </script>
 

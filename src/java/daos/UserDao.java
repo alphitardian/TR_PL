@@ -43,7 +43,8 @@ public class UserDao {
                     User user = new User();
                     user.setId(resultSet.getInt("id"));
                     user.setName(resultSet.getString("name"));
-                    user.setPassword(resultSet.getString("username"));
+                    user.setUsername(resultSet.getString("username"));
+                    user.setPassword(resultSet.getString("password"));
                     result.add(user);
                 }
 
@@ -114,7 +115,7 @@ public class UserDao {
         }
     }
 
-    public boolean deleteUser(int id) {
+    public boolean delete(String id) {
 
         if (connection.getConnection() == null) {
             return false;
@@ -136,7 +137,29 @@ public class UserDao {
         }
     }
 
-    public boolean insertUser(String name, String username, String password) {
+    public boolean update(String id, String name, String username, String password) {
+        if (connection.getConnection() == null) {
+            return false;
+        } else {
+            try {
+                String data[] = {name, username, password, id};
+                connection.connectDBPreparedStatementDoQuery(Query.QUERY_UPDATE_USER.getDisplayName(), data);
+
+                preparedStatement.close();
+                connection.getConnection().close();
+
+                System.out.println("Updated!");
+
+            } catch (Exception e) {
+                System.out.println("Error : " + e);
+            }
+
+            return true;
+
+        }
+    }
+
+    public boolean insert(String name, String username, String password) {
 
         if (connection.getConnection() == null) {
             return false;
