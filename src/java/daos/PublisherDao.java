@@ -61,7 +61,7 @@ public class PublisherDao {
         }
     }
 
-    public Publisher getBookById(int id) {
+    public Publisher getPublisherById(String id) {
 
         if (connection.getConnection() == null) {
             return null;
@@ -69,7 +69,8 @@ public class PublisherDao {
             Publisher publisher = new Publisher();
 
             try {
-                resultSet = connection.connectDBPreparedStatementSingleValue(Query.QUERY_GET_PUBLISHER_BY_ID.getDisplayName(), id + "");
+                String data[] = {id};
+                resultSet = connection.connectDBPreparedStatement(Query.QUERY_GET_PUBLISHER_BY_ID.getDisplayName(), data);
 
                 while (resultSet.next()) {
                     publisher.setId(resultSet.getInt("id"));
@@ -100,6 +101,34 @@ public class PublisherDao {
             try {
                 String[] data = {name, address, telephone};
                 return connection.connectDBPreparedStatementDoQuery(Query.QUERY_INSERT_PUBLISHER.getDisplayName(), data);
+            } catch (Exception e) {
+                System.out.println("Error : " + e);
+            }
+        }
+        return false;
+    }
+
+    public boolean delete(String id) {
+        if (connection.getConnection() == null) {
+            return false;
+        } else {
+            try {
+                String[] data = {id};
+                return connection.connectDBPreparedStatementDoQuery(Query.QUERY_DELETE_PUBLISHER.getDisplayName(), data);
+            } catch (Exception e) {
+                System.out.println("Error : " + e);
+            }
+        }
+        return false;
+    }
+
+    public boolean update(String id, String name, String address, String telephone) {
+        if (connection.getConnection() == null) {
+            return false;
+        } else {
+            try {
+                String[] data = {name, address, telephone, id};
+                return connection.connectDBPreparedStatementDoQuery(Query.QUERY_UPDATE_PUBLISHER.getDisplayName(), data);
             } catch (Exception e) {
                 System.out.println("Error : " + e);
             }
