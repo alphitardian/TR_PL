@@ -204,6 +204,15 @@
         <script>
             $('.dataTable-enable').DataTable();
 
+            var url_string = window.location.href; //window.location.href
+            var url = new URL(url_string);
+            var c = url.searchParams.get("open-modal");
+
+            if (c == "yes") {
+                $('#publisherModal').modal('show');
+            }
+
+
             $(document).on("click", ".btn-edit", function () {
                 $('#formEditPublisher').attr('action', "UpdatePublisher");
 

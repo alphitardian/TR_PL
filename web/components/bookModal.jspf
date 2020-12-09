@@ -1,0 +1,58 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<%@page import="daos.PublisherDao"%>
+<%@page import="models.Publisher"%>
+<%@page import="java.util.List"%>
+<%
+    PublisherDao publisherDao = new PublisherDao();
+
+    List<Publisher> publisher = publisherDao.getAll();
+%>
+<!-- Modal -->
+<div class="modal fade" id="bookModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="AddPublisher" method="post" id="formEditPublisher">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Publisher</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="id" id="id">
+                    <div class="form-group">
+                        <label>ISBN</label>
+                        <input type="text" class="form-control" id="name" name="name">
+                    </div>
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" class="form-control" id="address" name="address">
+                    </div>
+                    <div class="form-group">
+                        <label>Author</label>
+                        <input type="text" class="form-control" id="author" name="author">
+                    </div>
+                    <div class="form-group">
+                        <label>Publisher</label>
+                        <select class="form-control" name="publisher" id="publisher">
+                            <%
+                                for (int i = 0; i < publisher.size(); i++) {
+                            %>
+                            <option value="<%= publisher.get(i).getId()%>"><%= publisher.get(i).getName()%></option>
+                            <% }%>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Availability</label>
+                        <input type="text" class="form-control" id="availability" name="availability">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
